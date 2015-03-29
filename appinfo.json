@@ -1,16 +1,15 @@
 {
     "appKeys": {},
     "capabilities": [
-        ""
+        "location"
     ],
-    "companyName": "thomas.grzyb@gmx.de",
+    "companyName": "Thomas Grzyb",
     "longName": "VRR Stationfinder",
     "projectType": "pebblejs",
     "resources": {
         "media": [
             {
                 "file": "images/menu_icon.png",
-                "menuIcon": true,
                 "name": "IMAGE_MENU_ICON",
                 "type": "png"
             },
@@ -28,13 +27,19 @@
                 "file": "fonts/UbuntuMono-Regular.ttf",
                 "name": "MONO_FONT_14",
                 "type": "font"
+            },
+            {
+                "file": "images/ico_app.png",
+                "menuIcon": true,
+                "name": "IMAGES_ICO_APP_PNG",
+                "type": "png"
             }
         ]
     },
-    "shortName": "VRR Stationfinder",
-    "uuid": "1a961eb1-8154-4620-a8e5-11c984d55a3f",
+    "shortName": "Stationfinder",
+    "uuid": "70672cc4-fe50-4f31-85ff-e5f04e9d4f02",
     "versionCode": 1,
-    "versionLabel": "1.0",
+    "versionLabel": "1.1",
     "watchapp": {
         "watchface": false
     }
