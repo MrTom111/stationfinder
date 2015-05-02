@@ -29,6 +29,11 @@
                 "type": "font"
             },
             {
+                "file": "images/bvb.png",
+                "name": "IMAGES_BVB_PNG",
+                "type": "png"
+            },
+            {
                 "file": "images/ico_app.png",
                 "menuIcon": true,
                 "name": "IMAGES_ICO_APP_PNG",
