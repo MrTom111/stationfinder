@@ -77,6 +77,9 @@ function vrrCoordRequest(){
   var URL = 'http://app.vrr.de/standard/XML_COORD_REQUEST?outputFormat=JSON&language=de&stateless=1&coordOutputFormat=WGS84&' + 
           'coord=' + lon + ':' + lat + ':WGS84&max=10&inclFilter=1&radius_1=1000&type_1=STOP';
   
+  //var URL = 'http://app.vrr.de/standard/XML_COORD_REQUEST?outputFormat=JSON&language=de&stateless=1&coordOutputFormat=WGS84&' + 
+  //        'coord=' + '6.767' + ':' + '51.5' + ':WGS84&max=10&inclFilter=1&radius_1=1000&type_1=STOP';
+  
   // Make the request
   ajax(
     {
@@ -157,6 +160,7 @@ function vrrStationRequest(stationID, stationName, stationListMenu){
                     'type_dm=stop&name_dm=' + stationID + '&itdDate=' + datum + '&itdTime=' + zeit + '&useRealtime=1&mode=direct&' +
                     'ptOptionsActive=1&deleteAssignedStops_dm=1&mergeDep=1&limit=10';
   
+  console.log(stationURL);
   // Make the request
   ajax(
     {

@@ -4,7 +4,7 @@
         "location"
     ],
     "companyName": "Thomas Grzyb",
-    "longName": "VRR Stationfinder",
+    "longName": "Abfahrt!",
     "projectType": "pebblejs",
     "resources": {
         "media": [
@@ -36,7 +36,7 @@
             }
         ]
     },
-    "shortName": "Stationfinder",
+    "shortName": "Abfahrt!",
     "uuid": "70672cc4-fe50-4f31-85ff-e5f04e9d4f02",
     "versionCode": 1,
     "versionLabel": "1.1",
