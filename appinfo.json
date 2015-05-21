@@ -29,8 +29,8 @@
                 "type": "font"
             },
             {
-                "file": "images/bvb.png",
-                "name": "IMAGES_BVB_PNG",
+                "file": "images/splash.png",
+                "name": "IMAGES_SPLASH_PNG",
                 "type": "png"
             },
             {
@@ -41,6 +41,7 @@
             }
         ]
     },
+    "sdkVersion": "3",
     "shortName": "Abfahrt!",
     "uuid": "70672cc4-fe50-4f31-85ff-e5f04e9d4f02",
     "versionCode": 1,
