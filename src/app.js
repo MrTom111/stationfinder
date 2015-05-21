@@ -216,44 +216,103 @@ function showDetails(departure){
      minute = 'Minuten';
   }
   
+  var background = new UI.Text({
+    position: new Vector2(0, 0),
+    size: new Vector2(144, 168),
+    backgroundColor:'white'
+  });
+  
   var header = new UI.Text({
     position: new Vector2(0, 0),
-    size: new Vector2(144, 20),
-    text:'Abfahrtsdetails:',
+    size: new Vector2(144, 48),
+    text:'Abfahrtsdetails \n Linie ' + departure.servingLine.number,
+    font:'GOTHIC_24_BOLD',
+    color:'white',
+    textOverflow:'wrap',
+    textAlign:'center',
+    backgroundColor:'black'
+  });
+  
+   var borderTop = new UI.Rect({
+    position: new Vector2(0, 48),
+    size: new Vector2(144, 3),
+    borderColor:'black'
+  });
+    
+  var direction1 = new UI.Text({
+    position: new Vector2(5, 48),
+    size: new Vector2(139, 27),
+    text:'Richtung ' ,
+    font:'GOTHIC_24_BOLD',
+    color:'black',
+    textOverflow:'fill',
+    textAlign:'left',
+    backgroundColor:'white'
+  });
+  
+  var direction2 = new UI.Text({
+    position: new Vector2(5, 72),
+    size: new Vector2(139, 27),
+    text:departure.servingLine.direction,
+    font:'GOTHIC_24',
+    color:'black',
+    textOverflow:'fill',
+    textAlign:'left',
+    backgroundColor:'white'
+  });
+  
+
+  var platform1 = new UI.Text({
+    position: new Vector2(5, 97),
+    size: new Vector2(75, 27),
+    text:'Bahnsteig ',
     font:'GOTHIC_24_BOLD',
     color:'black',
     textOverflow:'wrap',
-    textAlign:'center',
+    textAlign:'left',
     backgroundColor:'white'
   });
   
-  
-  var line = new UI.Text({
-    position: new Vector2(0, 20),
-    size: new Vector2(144, 80),
-    text:departure.servingLine.number + ' (' + departure.servingLine.direction +  ')',
+  var platform2 = new UI.Text({
+    position: new Vector2(83, 97),
+    size: new Vector2(61, 27),
+    text: departure.platform,
     font:'GOTHIC_24',
     color:'black',
     textOverflow:'wrap',
-    textAlign:'center',
+    textAlign:'left',
     backgroundColor:'white'
   });
   
-   var timer = new UI.Text({
-    position: new Vector2(0, 100),
-    size: new Vector2(144, 168),
+  var timer = new UI.Text({
+    position: new Vector2(0, 125),
+    size: new Vector2(144, 40),
     text:'In ' + departure.countdown + ' ' + minute  ,
-    font:'GOTHIC_24',
-    color:'black',
+    font:'GOTHIC_24_BOLD',
+    color:'white',
     textOverflow:'wrap',
     textAlign:'center',
-    backgroundColor:'white'
+    backgroundColor:'black'
+  });
+  
+  var borderBottom = new UI.Rect({
+    position: new Vector2(0, 125),
+    size: new Vector2(144, 3),
+    borderColor:'white'
   });
   
   // Add to splashWindow and show
-  detailWindow.add(header);
-  detailWindow.add(line);
+  detailWindow.add(background);
   detailWindow.add(timer);
+  detailWindow.add(platform2);
+  detailWindow.add(platform1);
+  detailWindow.add(direction2);  
+  detailWindow.add(direction1);
+  detailWindow.add(header);
+  
+  detailWindow.add(borderTop);
+  detailWindow.add(borderBottom); 
+  
   detailWindow.show();
 }
 
