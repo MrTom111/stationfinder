@@ -209,6 +209,7 @@ function showDetails(departure){
   // Show window with departure details
   var detailWindow = new UI.Window();
   var minute;
+  var platform;
   
   if(departure.countdown == 1){
      minute = 'Minute';
@@ -216,10 +217,25 @@ function showDetails(departure){
      minute = 'Minuten';
   }
   
-  var background = new UI.Text({
+  if(departure.platform === ''){
+    platform = 1;    
+  }else{
+    platform = departure.platform;
+  }
+  
+  
+  var background = new UI.Rect({
     position: new Vector2(0, 0),
     size: new Vector2(144, 168),
-    backgroundColor:'white'
+    backgroundColor:'black',
+    borderColor:'black'
+  });
+  
+   var background2 = new UI.Rect({
+    position: new Vector2(0, 49),
+    size: new Vector2(144, 77),
+    backgroundColor:'white',
+    borderColor:'white'
   });
   
   var header = new UI.Text({
@@ -233,12 +249,6 @@ function showDetails(departure){
     backgroundColor:'black'
   });
   
-   var borderTop = new UI.Rect({
-    position: new Vector2(0, 48),
-    size: new Vector2(144, 3),
-    borderColor:'black'
-  });
-    
   var direction1 = new UI.Text({
     position: new Vector2(5, 48),
     size: new Vector2(139, 27),
@@ -276,7 +286,7 @@ function showDetails(departure){
   var platform2 = new UI.Text({
     position: new Vector2(83, 97),
     size: new Vector2(61, 27),
-    text: departure.platform,
+    text: platform,
     font:'GOTHIC_24',
     color:'black',
     textOverflow:'wrap',
@@ -301,8 +311,16 @@ function showDetails(departure){
     borderColor:'white'
   });
   
-  // Add to splashWindow and show
+  var borderTop = new UI.Rect({
+    position: new Vector2(0, 48),
+    size: new Vector2(144, 3),
+    borderColor:'black',
+    backgroundColor:'black'
+  });
+  
+  // Add Elements and show Window
   detailWindow.add(background);
+  detailWindow.add(background2);
   detailWindow.add(timer);
   detailWindow.add(platform2);
   detailWindow.add(platform1);
