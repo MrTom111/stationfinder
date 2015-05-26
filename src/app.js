@@ -79,26 +79,28 @@ function vrrCoordRequest(lat, lon){
       console.log('URL: ' + URL);
       var menuItems = getStationsFromJSON(data);
   
-      // Construct Menu to show to user
-      var stationListMenu = new UI.Menu({
-        sections: [{
-          title: 'Haltestellen',
-          items: menuItems
-        }]
-      });
-      
-      // Add an action for SELECT
-      stationListMenu.on('select', function(entry) {
-        // Get data for station
-        var stationID = data.pins[entry.itemIndex].id;
-        var stationName = data.pins[entry.itemIndex].desc;
-        vrrStationRequest(stationID, stationName);
-      });
-            
-      // Show the Menu, hide the splash
-      stationListMenu.show();
-      splashWindow.hide();
-      
+      if(menuItems !== null){
+        console.log('showing menuItems');
+        // Construct Menu to show to user
+        var stationListMenu = new UI.Menu({
+          sections: [{
+            title: 'Haltestellen',
+            items: menuItems
+          }]
+        });
+        
+        // Add an action for SELECT
+        stationListMenu.on('select', function(entry) {
+          // Get data for station
+          var stationID = data.pins[entry.itemIndex].id;
+          var stationName = data.pins[entry.itemIndex].desc;
+          vrrStationRequest(stationID, stationName);
+        });
+              
+        // Show the Menu, hide the splash
+        stationListMenu.show();
+        splashWindow.hide();
+      }
     },
     function(error) {
       // Failure!
@@ -109,15 +111,21 @@ function vrrCoordRequest(lat, lon){
 
 function getStationsFromJSON(data) {
   var items = [];
-  for(var i = 0; i < data.pins.length; i++) {
-    var station = data.pins[i].desc;
-    var distance = data.pins[i].distance + 'm entfernt';
-    
-    // Add to menu items array
-    items.push({
-      title:station,
-      subtitle:distance,
-    });
+  try{
+    for(var i = 0; i < data.pins.length; i++) {
+      var station = data.pins[i].desc;
+      var distance = data.pins[i].distance + 'm entfernt';
+      
+      // Add to menu items array
+      items.push({
+        title:station,
+        subtitle:distance,
+      });
+    }
+  }catch(e){
+    showError();
+    console.log('Error while parsing data: '+e);
+    return null;
   }
   // Finally return whole array
   return items;
@@ -143,7 +151,7 @@ function vrrStationRequest(stationID, stationName){
   var minuten = jetzt.getMinutes().toString();
   minuten = ((minuten < 10) ? "0" + minuten : minuten);
   var zeit = stunden + minuten;
-    
+
   var stationURL = 'http://app.vrr.de/standard/XSLT_DM_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&type_dm=stop&' + 
                     'name_dm=' + stationID + '&itdDate=' + datum + '&itdTime=' + zeit + '&useRealtime=1&mode=direct&limit=10';
   
@@ -156,26 +164,27 @@ function vrrStationRequest(stationID, stationName){
     },
     function(data) {
       // Success!
-      console.log('Successfully fetched station data!');
+      console.log('Response received! Trying to parse data...');
       
       var menuItemsDepartures = getDeparturesFromJSON(data);
-       
-      // Construct Menu to show to user
-      var resultsMenuDepartures = new UI.Menu({
-        sections: [{
-          title: stationName,
-          items: menuItemsDepartures
-        }]
-      });
-     
-      // Add an action for SELECT
-      resultsMenuDepartures.on('select', function(entry) {
-        // Show Details
-        showDetails(data.departureList[entry.itemIndex]);
-      });
-      
-      // Show the new Menu
-      resultsMenuDepartures.show();      
+         if(menuItemsDepartures !== null){
+          // Construct Menu to show to user
+          var resultsMenuDepartures = new UI.Menu({
+            sections: [{
+              title: stationName,
+              items: menuItemsDepartures
+            }]
+          });
+         
+          // Add an action for SELECT
+          resultsMenuDepartures.on('select', function(entry) {
+            // Show Details
+            showDetails(data.departureList[entry.itemIndex]);
+          });
+          
+          // Show the new Menu
+          resultsMenuDepartures.show();     
+       }
     },
     function(error) {
       // Failure!
@@ -189,16 +198,22 @@ function getDeparturesFromJSON(data) {
   var departures = [];
   //TODO: Fehlerbehandlung, wenn JSON-Antwort zurück kommt aber nicht auswertbar ist 
   //Beispiel: Tag in URL nur einstellig --> Fehlermeldung auf Uhr ausgeben!
-  for(var i = 0; i < data.departureList.length; i++) {
-    var number = data.departureList[i].servingLine.number;
-    var direction = data.departureList[i].servingLine.direction;
-    var countdown = data.departureList[i].countdown;    
-    
-    // Add to menu items array
-    departures.push({
-      title:number + ' (' + direction + ')',
-      subtitle:'In ' + countdown + ' Minuten',
-    });
+  try{
+    for(var i = 0; i < data.departureList.length; i++) {
+      var number = data.departureList[i].servingLine.number;
+      var direction = data.departureList[i].servingLine.direction;
+      var countdown = data.departureList[i].countdown;    
+      
+      // Add to menu items array
+      departures.push({
+        title:number + ' (' + direction + ')',
+        subtitle:'In ' + countdown + ' Minuten',
+      });
+    }
+  }catch(e){
+    showError();
+    console.log('Error while parsing data: '+e);
+    return null;
   }
   // Finally return whole array
   return departures;
@@ -332,6 +347,23 @@ function showDetails(departure){
   detailWindow.add(borderBottom); 
   
   detailWindow.show();
+}
+
+function showError(){
+  var errorWindow = new UI.Window();  
+  var errorText = new UI.Text({
+    position: new Vector2(0, 0),
+    size: new Vector2(144, 168),
+    text:'Fehler beim Abrufen der Daten.\n Bitte erneut probieren oder Fehler melden!',
+    font:'GOTHIC_24_BOLD',
+    color:'black',
+    textOverflow:'wrap',
+    textAlign:'center',
+    backgroundColor:'white'
+  });
+  
+  errorWindow.add(errorText);
+  errorWindow.show();
 }
 
 navigator.geolocation.getCurrentPosition(locationSuccess, locationError, locationOptions);
