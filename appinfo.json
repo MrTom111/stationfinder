@@ -29,13 +29,18 @@
                 "type": "font"
             },
             {
+                "file": "images/ico_app_new.png",
+                "menuIcon": true,
+                "name": "IMAGES_ICO_APP_NEW_PNG",
+                "type": "png"
+            },
+            {
                 "file": "images/splash.png",
                 "name": "IMAGES_SPLASH_PNG",
                 "type": "png"
             },
             {
                 "file": "images/ico_app.png",
-                "menuIcon": true,
                 "name": "IMAGES_ICO_APP_PNG",
                 "type": "png"
             }
@@ -45,7 +50,7 @@
     "shortName": "Abfahrt!",
     "uuid": "70672cc4-fe50-4f31-85ff-e5f04e9d4f02",
     "versionCode": 1,
-    "versionLabel": "1.1",
+    "versionLabel": "1.0",
     "watchapp": {
         "watchface": false
     }

@@ -66,7 +66,7 @@ function vrrCoordRequest(lat, lon){
   
   //var URL = 'http://app.vrr.de/standard/XML_COORD_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&' + 
   //        'coord=' + '6.767' + ':' + '51.5' + ':WGS84&max=10&inclFilter=1&radius_1=1000&type_1=STOP';
-  
+  // Leere Antwort 9.75:52.4
   // Make the request
   ajax(
     {
