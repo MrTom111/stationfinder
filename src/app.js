@@ -67,7 +67,7 @@ function locationError(err) {
 
 function vrrCoordRequest(lat, lon) {
     //build URL
-    var URL = 'http://app.vrr.de/standard/XML_COORD_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&' +
+    var URL = 'http://app.vrr.de/companion-vrr/XML_COORD_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&' +
         'coord=' + lon + ':' + lat + ':WGS84&max=10&inclFilter=1&radius_1=1000&type_1=STOP';
 
     //var URL = 'http://app.vrr.de/standard/XML_COORD_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&' + 
@@ -150,14 +150,14 @@ function vrrStationRequest(stationID, stationName) {
     if (tag < 10) {
         tag = '0' + tag;
     }
-    var datum = jahr + monat + tag;
+    var datum = jahr.toString() + monat.toString() + tag.toString();
     var stunden = jetzt.getHours().toString();
     stunden = ((stunden < 10) ? "0" + stunden : stunden);
     var minuten = jetzt.getMinutes().toString();
     minuten = ((minuten < 10) ? "0" + minuten : minuten);
     var zeit = stunden + minuten;
 
-    var stationURL = 'http://app.vrr.de/standard/XSLT_DM_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&type_dm=stop&' +
+    var stationURL = 'http://app.vrr.de/companion-vrr/XSLT_DM_REQUEST?outputFormat=JSON&coordOutputFormat=WGS84&type_dm=stop&' +
         'name_dm=' + stationID + '&itdDate=' + datum + '&itdTime=' + zeit + '&useRealtime=1&mode=direct&limit=10';
 
     console.log(stationURL);

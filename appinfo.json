@@ -48,10 +48,15 @@
     },
     "sdkVersion": "3",
     "shortName": "Abfahrt!",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
     "uuid": "70672cc4-fe50-4f31-85ff-e5f04e9d4f02",
     "versionCode": 1,
     "versionLabel": "1.0",
     "watchapp": {
+        "hiddenApp": false,
         "watchface": false
     }
 }
